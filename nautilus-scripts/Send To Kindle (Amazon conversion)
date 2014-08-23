@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# This script emails the file to the Kindle specifying convert as the 
+# subject so the Amazon service converts it to the proprietary Kindle format.
+#
+# Supported file types for the Amazon conversion service:
+#   Microsoft Word (.DOC, .DOCX)
+#   HTML (.HTML, .HTM)
+#   RTF (.RTF)
+#   Text (.TXT)
+#   JPEG (.JPEG, .JPG)
+#   Kindle Format (.MOBI, .AZW)
+#   GIF (.GIF)
+#   PNG (.PNG)
+#   BMP (.BMP)
+#   PDF (.PDF)
+
+./Send\ To\ Kindle $1 convert

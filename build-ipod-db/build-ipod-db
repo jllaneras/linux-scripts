@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This script builds the iPod Suffle (4th generation) database after having copied new 
+# music on it.
+
+# Uses the shuffle_db_ng script: https://code.google.com/p/shuffle-db-ng/
+# Package dependencies: python2.7, libttspico-utils (pico2wave command), python-mutagen
+
+shuffle_db_ng_script_path=/home/pep/Dropbox/scripts/suffle-db-ng/shuffle.py
+ipod_path=/media/IPOD
+
+python "$shuffle_db_ng_script_path" "$ipod_path"

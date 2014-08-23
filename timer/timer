@@ -1,0 +1,4 @@
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+time_expression=$1
+
+sleep $((time_expression)) && notify-send "$((time_expression)) seconds are gone." && mpg123 $DIR/timer_tone.mp3

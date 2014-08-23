@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Script inspired by: http://nims11.wordpress.com/2013/10/12/ipod-shuffle-4g-under-linux/
+# Uses the shuffle_db_ng script: https://code.google.com/p/shuffle-db-ng/
+# Package dependencies: python2.7, libttspico-utils (pico2wave command), python-mutagen
+
+## Configuration ##
+shuffle_db_ng_script_path=/home/pep/Dropbox/scripts/suffle-db-ng/shuffle.py
+ipod_path=/media/IPOD
+###################
+
+## Parameters ##
+music_dir="$1"
+################
+
+music_dir=${music_dir%/} # remove trailing slash if any to avoid double slashes
+music_dir_name=`basename "${music_dir%/}"` # getting last dir name
+ipod_dest_path="$ipod_path/Music/$music_dir_name"
+
+notify-send "Sending $music_dir to iPod..."
+
+mkdir "$ipod_dest_path"
+
+cp "$music_dir"/*.mp3 "$ipod_dest_path"
+cd "$ipod_dest_path"
+find . -name "*.mp3" > "$ipod_dest_path/$music_dir_name.m3u"
+
+notify-send "Generating iPod database..."
+
+python "$shuffle_db_ng_script_path" "$ipod_path"
+
+notify-send "$music_dir ready in the iPod :-)"

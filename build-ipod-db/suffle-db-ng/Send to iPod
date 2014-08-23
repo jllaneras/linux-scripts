@@ -1,0 +1,14 @@
+!#/bin/bash
+
+music_dir=$1
+
+music_dir_name=${music_dir%/} # remove trailing slash if any to avoid double slashes
+
+ipod_path=/home/pep/ipod_test
+ipod_dest_path="$ipod_path/Music/$music_dir_name"
+
+mkdir $ipod_dest_path
+
+cp "$music_dir/*.mp3" "$ipod_dest_path"
+cd $ipod_dest_path
+find . -name "*.mp3" > $music_dir_name.m3u

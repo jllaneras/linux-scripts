@@ -1,0 +1,56 @@
+#! /bin/bash
+# Depends on packages: sendemail, ebook-convert, notify-send
+
+if [ $# -lt 1 ]; then 
+    printf "No document to send specifyed.\n\nUsage: $0 document-to-send [convert]\n" >&2
+    exit 1
+fi
+
+# Email configuration
+my_email=pepmanuel@gmail.com
+my_password=pgdobxbvzubsmcff
+smtp_address=smtp.gmail.com:587
+kindle_email=pepmanuel@free.kindle.com
+
+# Parameters
+file_path="$1"
+mail_subject="$2" # If Convert is specifyed as the subject of the email, the Amazon service tries to convert the file to mobi
+file_extension=`echo ${file_path: -5} | tr '[:upper:]' '[:lower:]'`
+log_file="$file_path-sendtokindle.log"
+
+> "$log_file"
+
+function log_notify {
+	echo $1 | tee -a "$log_file"
+	notify-send "$1"
+}
+
+log_notify "Sending file to Kindle..."
+
+if [ "$file_extension" == ".epub" ]
+then
+	log_notify "Converting epub to mobi..."
+	
+	ebook-convert "$file_path" "$file_path.mobi" 2>&1 | tee -a "$log_file"
+	
+	if [ $? -ne 0 ]
+	then
+		log_notify "There was a problem converting the ebook."
+		exit $error
+	fi
+	
+	file_path="$file_path.mobi"
+	
+	log_notify "Conversion to epub done."
+fi
+
+output=$(sendemail -f $my_email -t $kindle_email -u "$mail_subject" -m "Sent To Kindle script." -s $smtp_address -xu $my_email -xp "$my_password" -a "$file_path")
+log_notify "$output"
+
+if [ $? -ne 0 ] # TODO: sendemail never ouput to stderr. Look for an alternative.
+then
+	log_notify "There was a problem sending the document to the Kindle."
+	exit $?
+fi
+
+log_notify "Done."

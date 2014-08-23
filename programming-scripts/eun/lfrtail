@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#tail -f /opt/liferay-portal-5.2.3/tomcat-6.0.18/logs/catalina.out
+multitail -cS apache -cS log4j -f /opt/liferay-portal-5.2.3/tomcat-6.0.18/logs/catalina.out

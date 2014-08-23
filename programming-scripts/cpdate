@@ -1,0 +1,3 @@
+#!/bin/bash
+
+date +%Y%m%d-%Hh%M | tr -d '\n' | xclip -selection c

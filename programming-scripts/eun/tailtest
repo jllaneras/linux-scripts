@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# tails the Liferay log on test given the project (i.e. scientix, saferinternet, smart, ...)
+
+ssh lfr$1@lfrtest "tail -f /opt/liferay-portal-5.2.3-$1/tomcat-6.0.18/logs/catalina.out"

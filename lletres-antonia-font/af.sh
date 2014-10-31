@@ -8,11 +8,12 @@ sed -r "s/href/\nhref/g" | grep href | \
 sed -r "s/href=\"([^\"]+)([^$]+)/\1/g" > urls-lletres-af.txt
 
 mkdir pagines-cançons
-
-# Davallar les pagines HTML de totes les cançons
-echo `cat meta/urls_af.txt` | xargs wget -O pagines-cançons
+mkdir resultat
 
 cd pagines-cançons
+
+# Davallar les pagines HTML de totes les cançons
+cat ../urls-lletres-af.txt | wget -O- -i-
 
 # Extreure les lletres de les pagines HTML i posar-les en un fitxer
 # "ls --ignore "*.?"" llista tots els nomes de fitxers que no acaben amb

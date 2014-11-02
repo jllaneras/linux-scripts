@@ -24,7 +24,7 @@ function corregir_text() {
 	# Eliminar espais repetits
 	sed -i -r "s/( +)/ /g" $fitxer_tmp
 	# Assegurar que hi ha un espai darrera cada punt (en fer el recompte de
-	# paraules seran eliminants).
+	# paraules seran eliminats).
 	# Excepcions: quan estan entre números (30.000), quan formen part de 
 	# sigles (S.O.S.) i quan són punts suspensius (...).
 	sed -i -r "s/([a-z]+)\.([A-Z]+)/\1\. \2/g" $fitxer_tmp

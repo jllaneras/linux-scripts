@@ -6,7 +6,7 @@ if [ ! -d "resultats" ]; then
 	mkdir resultats
 fi
 
-#baixar_lletres
+baixar_lletres
 
 cd resultats/lletres/
 

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Records current video and audio and saves it to a file in $output_dir
+# pavucontrol can be used while recording to change the audio source (mic/system)
+
+output_dir=~/Videos
+output_file=$output_dir/screencast_$(date +"%Y-%m-%d_%H-%M-%S").mkv
+echo "Recording screencast to ${output_file}..."
+echo "Press Ctrl-C to stop the recording."
+ffmpeg -f pulse -i default -f x11grab -s 1920x1080 -i :0.0 -r 25 -vcodec libx264 -loglevel error $output_file
+
